@@ -1,0 +1,42 @@
+<div class="h-screen flex flex-col gap-y-4 justify-center items-center">
+      <h1 class="text-5xl font-mono font-bold">{{title}}</h1>
+      <form class="flex flex-col items-center w-1/4" action="/login" method="post">
+            <div class="mb-3 w-full">
+                  <label for="username">Username</label> <br />
+                  <input type="text" name="username" id="username" class="border px-2 py-1 w-full"
+                        placeholder="It's your glorious name..." value="{{old.username}}" />
+                  <p class="text-red-600 text-sm">
+                        {{errors.username.msg}}
+                  </p>
+            </div>
+            <div class="mb-3 w-full">
+                  <label for="password">Password</label> <br />
+                  <input type="password" name="password" id="password" class="border px-2 py-1 w-full"
+                        placeholder="It must be secret..." value="{{old.password}}" />
+                  <p class="text-red-600 text-sm">
+                        {{errors.password.msg}}
+                  </p>
+            </div>
+            <div class="mb-3 w-full">
+                  <input type="checkbox" id="showPassword" class="text-center border px-2 py-1" />
+                  <label for="showPassword">Show Password</label>
+            </div>
+            <button type="submit" class="bg-slate-500 text-slate-100 px-4 py-2 rounded-md w-full">
+                  Join
+            </button>
+      </form>
+</div>
+
+<script>
+      const togglePassword = () => {
+            if ($("#password").attr("type") === "password") {
+                  $("#password").attr("type", "text");
+            } else if ($("#password").attr("type") === "text") {
+                  $("#password").attr("type", "password");
+            }
+      };
+
+      $("#showPassword").change(() => {
+            togglePassword();
+      });
+</script>

@@ -1,0 +1,11 @@
+<header class="absolute w-full flex justify-between px-2 border">
+  <div>Quests</div>
+  <ul class="flex gap-x-2">
+  {{#if isAuth}}
+    <li><a href="/logout">Logout</a></li>
+  {{else}}
+    <li><a href="/login">Login</a></li>
+    <li><a href="/register">Register</a></li>
+  {{/if}}
+  </ul>
+</header>
