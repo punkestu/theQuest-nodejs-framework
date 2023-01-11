@@ -11,8 +11,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  username  String   @unique
-  email     String   @unique
-  password  String
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
+  password String
+}
+
+model Token {
+  id       String   @id
+  username String
+  loginAt  DateTime @db.Timestamptz @default(now())
 }

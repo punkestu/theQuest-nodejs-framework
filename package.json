@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "p-seed": "node prisma/seeders/*.js"
+    "start": "nodemon index.js"
+  },
+  "prisma": {
+    "seed-user": "node prisma/seeders/User.js"
   },
   "author": "",
   "license": "ISC",

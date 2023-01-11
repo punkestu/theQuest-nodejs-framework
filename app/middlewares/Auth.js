@@ -1,16 +1,19 @@
+const TokenModel = require("../models/Token");
 const { verify } = require("jsonwebtoken");
 
 class Auth {
-  static authToken(req, _, next) {
+  static async authToken(req, _, next) {
     const authHeader = req.cookies["jwt"];
     const token = authHeader;
     if (token == null) {
       req.user = null;
     } else {
-      verify(token, process.env.TOKEN_SECRET, (err, user) => {
-        if (err) req.user = null;
-        else {
-          req.user = user;
+      req.user = await verify(token, process.env.TOKEN_SECRET, async (err, user) => {
+        const tokenExists = await TokenModel.exists(token);
+        if (err || !tokenExists) {
+          return null;
+        } else {
+          return user;
         }
       });
     }

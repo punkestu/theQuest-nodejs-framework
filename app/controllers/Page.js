@@ -1,8 +1,6 @@
-const UserModel = require("../models/User");
-
-class Home {
+class Pages {
   static async HomePage(req, res) {
-    res.render("pages/index", { title: "Index", isAuth : req.user });
+    res.render("pages/index", { title: "Index", isAuth: req.user });
   }
   static LoginPage(_, res) {
     res.render("pages/login", { title: "Login" });
@@ -15,4 +13,4 @@ class Home {
   }
 }
 
-module.exports = Home;
+module.exports = Pages;

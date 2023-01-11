@@ -5,8 +5,8 @@ const {
   NotfoundPage,
   RegisterPage,
   LoginPage,
-} = require("../app/controllers/Home");
-const { Login, Register } = require("../app/controllers/Auth");
+} = require("../app/controllers/Page");
+const { Login, Register, Logout } = require("../app/controllers/Auth");
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
 const {
   usernameGet,
@@ -21,7 +21,7 @@ route.get("/", HomePage);
 // authentication
 route.get("/login", [notAuth], LoginPage);
 route.get("/register", [notAuth], RegisterPage);
-// route.get("/logout", [notAuth, Logout], HomePage);
+route.get("/logout", [isAuth], Logout);
 route.post(
   "/login",
   [
