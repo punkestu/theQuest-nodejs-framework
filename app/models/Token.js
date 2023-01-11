@@ -1,33 +1,34 @@
-const prisma = require("../../prisma/db");
+const { token } = require("../../prisma/db");
 
-class TokenModel {
-  static async all() {
-    return await prisma.token.findMany();
-  }
-  static async withUsername(username) {
-    return await prisma.token.findFirst({
+const model = {
+  ...token,
+  all: () => {
+    return token.findMany();
+  },
+  withUsername: (username) => {
+    return token.findFirst({
       where: { username },
     });
-  }
-  static async login(token, username) {
-    return await prisma.token.create({
+  },
+  login: (_token, username) => {
+    return token.create({
       data: {
-        id: token,
+        id: _token,
         username,
       },
     });
-  }
-  static async exists(token) {
-    const data = await prisma.token.findFirst({
-      where: { id: token },
+  },
+  exists: (_token) => {
+    const data = token.findFirst({
+      where: { id: _token },
     });
     return data != null;
-  }
-  static async logout(token) {
-    return await prisma.token.delete({
-      where: { id: token },
+  },
+  logout: (_token) => {
+    return token.delete({
+      where: { id: _token },
     });
-  }
-}
+  },
+};
 
-module.exports = TokenModel;
+module.exports = model;

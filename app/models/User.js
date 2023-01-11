@@ -1,19 +1,20 @@
-const prisma = require("../../prisma/db");
+const { user } = require("../../prisma/db");
 
-class UserModel {
-  static async all() {
-    return await prisma.user.findMany();
-  }
-  static async withUsername(username) {
-    return await prisma.user.findFirst({
+const model = {
+  ...user,
+  all: () => {
+    return user.findMany();
+  },
+  withUsername: (username) => {
+    return user.findFirst({
       where: { username },
     });
-  }
-  static async withEmail(email) {
-    return await prisma.user.findFirst({
+  },
+  withEmail: (email) => {
+    return user.findFirst({
       where: { email },
     });
   }
-}
+};
 
-module.exports = UserModel;
+module.exports = model;

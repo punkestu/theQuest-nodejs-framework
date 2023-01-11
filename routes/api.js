@@ -5,7 +5,7 @@ const UserModel = require("../app/models/User");
 route.get("/users", async (_, res) => {
   res.send({
     msg: "Welcome",
-    data: await UserModel.all()
+    data: await UserModel.all(),
   });
 });
 
