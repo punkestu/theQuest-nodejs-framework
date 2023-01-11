@@ -1,16 +1,18 @@
 <header class="absolute bg-white w-full flex flex-col md:flex-row justify-between md:px-4 md:py-3 md:border">
   <div class="bg-white z-50 w-full flex justify-between px-4 py-3 md:p-0 border md:border-0">
-    <a href="/" class="font-bold">Quests</a>
+    <a href="/" class="text-xl font-bold">Quests</a>
     <button id="togleNav" class="md:hidden">Show</button>
   </div>
-  <nav id="nav" class="absolute border md:border-0 -top-full duration-300 w-full md:relative flex flex-col items-center gap-y-2 py-2 md:py-0 md:flex-row md:justify-end md:gap-x-4">
-    {{#if isAuth}}
-    <a href="/">Quests</a>
-    <a href="/profile">Profile</a>
-    <a href="/logout">Logout</a>
-    {{else}}
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-    {{/if}}
-  </nav>
+  <div id="nav" class="absolute -top-full duration-300 w-full md:relative">
+    <nav class="py-2 md:py-0 border md:border-0 flex flex-col items-center gap-y-2 md:flex-row md:justify-end md:gap-x-4">
+      {{#if isAuth}}
+      <a href="/">Quests</a>
+      <a href="/profile">Profile</a>
+      <a href="/logout">Logout</a>
+      {{else}}
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+      {{/if}}
+    </nav>
+  </div>
 </header>
