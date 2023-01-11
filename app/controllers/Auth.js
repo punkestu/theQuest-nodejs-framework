@@ -21,7 +21,7 @@ class Auth {
 
     const token = await generateAccessToken(req.body.username);
     res.cookie("jwt", token);
-    res.redirect("/");
+    return res.redirect("/");
   }
   static async Register(req, res) {
     const errors = validationResult(req);
@@ -35,11 +35,19 @@ class Auth {
 
     const token = await generateAccessToken(req.body.username);
     res.cookie("jwt", token);
-    res.redirect("/");
+    return res.redirect("/");
   }
   static async Logout(req, res) {
-    await TokenModel.logout(req.cookies["jwt"]);
-    res.redirect("/login");
+    const tokenExists = await TokenModel.exists(req.cookies["jwt"]);
+    if (tokenExists) {
+      TokenModel.logout(req.cookies["jwt"])
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => res.redirect("/login"));
+    } else {
+      return res.redirect("/login");
+    }
   }
 }
 

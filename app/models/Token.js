@@ -18,10 +18,11 @@ const model = {
       },
     });
   },
-  exists: (_token) => {
-    const data = token.findFirst({
-      where: { id: _token },
-    });
+  exists: async (_token) => {
+    const data = await token
+      .findFirst({
+        where: { id: _token },
+      });
     return data != null;
   },
   logout: (_token) => {

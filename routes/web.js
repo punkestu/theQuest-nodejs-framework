@@ -5,6 +5,7 @@ const {
   NotfoundPage,
   RegisterPage,
   LoginPage,
+  ProfilePage,
 } = require("../app/controllers/Page");
 const { Login, Register, Logout } = require("../app/controllers/Auth");
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
@@ -16,7 +17,7 @@ const {
 } = require("../app/middlewares/Request");
 
 route.use("/", authToken);
-route.get("/", HomePage);
+route.get("/profile", [isAuth], ProfilePage);
 
 // authentication
 route.get("/login", [notAuth], LoginPage);
@@ -30,9 +31,9 @@ route.post(
     body("password").custom(passwordVal),
   ],
   Login
-);
-route.post(
-  "/register",
+  );
+  route.post(
+    "/register",
   [
     notAuth,
     body("username")
@@ -42,7 +43,7 @@ route.post(
       .withMessage("You need username")
       .custom(usernameUnique),
     body("email")
-      .trim()
+    .trim()
       .not()
       .isEmpty()
       .withMessage("You need email")
@@ -50,18 +51,19 @@ route.post(
       .withMessage("It is not an email")
       .custom(emailUnique),
     body("password")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("You need password")
-      .isLength({ min: 8, max: 12 })
-      .withMessage("8 - 12 characters please"),
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("You need password")
+    .isLength({ min: 8, max: 12 })
+    .withMessage("8 - 12 characters please"),
   ],
   Register
-);
-
-route.get("/home", [isAuth], HomePage);
-
-route.use(NotfoundPage);
+  );
+  
+  route.get("/home", [isAuth], HomePage);
+  route.get("/", HomePage);
+  
+  route.use("/", [authToken], NotfoundPage);
 
 module.exports = route;
