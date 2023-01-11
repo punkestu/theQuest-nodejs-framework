@@ -1,6 +1,7 @@
+const UserModel = require("../models/User");
+
 class Home {
-  static HomePage(req, res) {
-    console.log(req.user);
+  static async HomePage(req, res) {
     res.render("pages/index", { title: "Index", isAuth : req.user });
   }
   static LoginPage(_, res) {

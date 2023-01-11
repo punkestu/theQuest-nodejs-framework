@@ -8,24 +8,47 @@ const {
 } = require("../app/controllers/Home");
 const { Login, Register } = require("../app/controllers/Auth");
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
+const {
+  usernameGet,
+  passwordVal,
+  usernameUnique,
+  emailUnique,
+} = require("../app/middlewares/Request");
 
-route.get("/", authToken, HomePage);
+route.use("/", authToken);
+route.get("/", HomePage);
 
-route.get("/login", [authToken, notAuth], LoginPage);
-route.get("/register", [authToken, notAuth], RegisterPage);
-route.post("/login", [authToken, notAuth], Login);
+// authentication
+route.get("/login", [notAuth], LoginPage);
+route.get("/register", [notAuth], RegisterPage);
+// route.get("/logout", [notAuth, Logout], HomePage);
+route.post(
+  "/login",
+  [
+    notAuth,
+    body("username").custom(usernameGet),
+    body("password").custom(passwordVal),
+  ],
+  Login
+);
 route.post(
   "/register",
-  [authToken, notAuth],
   [
-    body("username").trim().not().isEmpty().withMessage("You need username"),
+    notAuth,
+    body("username")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("You need username")
+      .custom(usernameUnique),
     body("email")
       .trim()
       .not()
       .isEmpty()
       .withMessage("You need email")
       .isEmail()
-      .withMessage("It is not an email"),
+      .withMessage("It is not an email")
+      .custom(emailUnique),
     body("password")
       .trim()
       .not()
@@ -37,7 +60,7 @@ route.post(
   Register
 );
 
-route.get("/home", [authToken, isAuth], HomePage);
+route.get("/home", [isAuth], HomePage);
 
 route.use(NotfoundPage);
 

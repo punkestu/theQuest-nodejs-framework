@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const { verify } = require("jsonwebtoken");
 
 class Auth {
   static authToken(req, _, next) {
@@ -7,12 +7,9 @@ class Auth {
     if (token == null) {
       req.user = null;
     } else {
-      jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-        console.log(err);
-
+      verify(token, process.env.TOKEN_SECRET, (err, user) => {
         if (err) req.user = null;
         else {
-          console.log(user);
           req.user = user;
         }
       });
