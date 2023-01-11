@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "p-seed": "node prisma/seeders/*.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.8.1",
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
