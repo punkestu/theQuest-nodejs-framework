@@ -1,4 +1,9 @@
+const { sign } = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+
+function generateAccessToken(ID) {
+  return sign({ user: ID }, process.env.TOKEN_SECRET, { expiresIn: "1800s" });
+}
 
 class Auth {
   static Login(req, res) {
@@ -11,7 +16,8 @@ class Auth {
       });
     }
 
-    res.cookie("auth_token", "test123");
+    const token = generateAccessToken(req.body.username);
+    res.cookie("jwt", token);
     res.redirect("/");
   }
   static Register(req, res) {
@@ -24,7 +30,8 @@ class Auth {
       });
     }
 
-    res.cookie("auth_token", "test123");
+    const token = generateAccessToken(req.body.username);
+    res.cookie("jwt", token);
     res.redirect("/");
   }
 }

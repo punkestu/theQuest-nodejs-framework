@@ -1,4 +1,5 @@
 const express = require("express");
+const dotenv = require("dotenv");
 
 const bodyParser = require("body-parser");
 const { engine } = require("express-handlebars");
@@ -6,6 +7,8 @@ const cookieParser = require("cookie-parser");
 
 const WebRoute = require("./routes/web");
 const ApiRoute = require("./routes/api");
+
+dotenv.config();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));

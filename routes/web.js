@@ -7,16 +7,16 @@ const {
   LoginPage,
 } = require("../app/controllers/Home");
 const { Login, Register } = require("../app/controllers/Auth");
-const { isAuth, notAuth } = require("../app/middlewares/Auth");
+const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
 
-route.get("/", HomePage);
+route.get("/", authToken, HomePage);
 
-route.get("/login", isAuth, LoginPage);
-route.get("/register", isAuth, RegisterPage);
-route.post("/login", isAuth, Login);
+route.get("/login", [authToken, notAuth], LoginPage);
+route.get("/register", [authToken, notAuth], RegisterPage);
+route.post("/login", [authToken, notAuth], Login);
 route.post(
   "/register",
-  isAuth,
+  [authToken, notAuth],
   [
     body("username").trim().not().isEmpty().withMessage("You need username"),
     body("email")
@@ -37,7 +37,7 @@ route.post(
   Register
 );
 
-route.get("/home", notAuth, HomePage);
+route.get("/home", [authToken, isAuth], HomePage);
 
 route.use(NotfoundPage);
 
