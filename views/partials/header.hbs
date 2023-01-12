@@ -1,7 +1,11 @@
 <header class="absolute bg-white w-full flex flex-col md:flex-row justify-between md:px-4 md:py-3 md:border">
-  <div class="bg-white z-50 w-full flex justify-between px-4 py-3 md:p-0 border md:border-0">
+  <div class="bg-white z-50 w-full flex items-center justify-between px-4 py-3 md:p-0 border md:border-0">
     <a href="/" class="text-xl font-bold">Quests</a>
-    <button id="togleNav" class="md:hidden">Show</button>
+    <button id="togleNav" class="md:hidden flex flex-col gap-y-1">
+      <div class="bg-slate-900 w-6 h-1 rounded-md"></div>
+      <div class="bg-slate-900 w-6 h-1 rounded-md"></div>
+      <div class="bg-slate-900 w-6 h-1 rounded-md"></div>
+    </button>
   </div>
   <div id="nav" class="absolute -top-full duration-300 w-full md:relative">
     <nav class="py-2 md:py-0 border md:border-0 flex flex-col items-center gap-y-2 md:flex-row md:justify-end md:gap-x-4">
