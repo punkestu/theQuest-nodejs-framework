@@ -1,4 +1,5 @@
 const TokenModel = require("../models/Token");
+const UserModel = require("../models/User");
 const { sign } = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 
@@ -32,6 +33,14 @@ class Auth {
         errors: errors.mapped(),
       });
     }
+
+    await UserModel.create({
+      data: {
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+      },
+    });
 
     const token = await generateAccessToken(req.body.username);
     res.cookie("jwt", token);
