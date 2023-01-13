@@ -10,9 +10,19 @@ $("#showPassword").change(() => {
   togglePassword();
 });
 
-var navActive = false;
 const toggleNav = () => {
   $("#nav").toggleClass("-top-full");
   $("#nav").toggleClass("top-full");
 };
 $("#togleNav").click(toggleNav);
+
+const toggleFilter = () => {
+  $("#filter").toggleClass("max-h-0");
+  $("#filter").toggleClass("max-h-100");
+};
+$("#toggleFilter").click(() => {
+  toggleFilter();
+  $("#toggleFilter").html(
+    $("#toggleFilter").text() == "Hide" ? "Filter" : "Hide"
+  );
+});
