@@ -1,0 +1,28 @@
+<div class="mt-14 px-4 py-3 flex flex-col items-center">
+      <h1 class="text-4xl sm:text-5xl font-mono font-bold">Quests</h1>
+      <form id="filter" class="transition-all max-h-0 duration-200 overflow-hidden flex flex-col items-stretch">
+            <div class="mt-2 flex flex-col">
+                  <label for="keyword">Keyword</label>
+                  <input type="text" name="keyword" id="keyword" class="border px-2">
+            </div>
+            <div class="mt-2 flex flex-col">
+                  <label for="author">Author</label>
+                  <input type="text" name="author" id="author" class="border px-2">
+            </div>
+            <button type="submit" class="bg-slate-400 text-white px-2 py-1 rounded-md mt-2">Filter</button>
+      </form>
+      <button id="toggleFilter" class="bg-slate-400 text-white px-2 py-1 rounded-md mt-2">Filter</button>
+      <div class="flex flex-wrap justify-center justify-items-stretch mt-2 gap-2">
+            {{#forn 100}}
+            <a href="/" class="flex flex-col items-center gap-y-2 grow bg-slate-300 rounded-md p-3">
+                  <h1 class="text-2xl font-medium">Name</h1>
+                  <h2 class="text-lg">point</h2>
+                  <h2 class="text-xl">author</h2>
+                  <div class="flex gap-x-2">
+                        <h3>created at</h3>
+                        <h3>dateline</h3>
+                  </div>
+            </a>
+            {{/forn}}
+      </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="mt-14 px-4 py-3 flex flex-col items-center">
+      <h1 class="text-4xl sm:text-5xl font-mono font-bold">Create Quest</h1>
+      <form action="" method="post" class="mt-4 flex flex-col gap-y-2 w-4/5">
+            <div class="flex justify-between gap-x-2">
+                  <label for="name">Quest name</label>
+                  <input type="text" name="name" id="name" class="border w-2/3 md:w-5/6 px-2 py-1">
+            </div>
+            <div class="flex justify-between gap-x-2">
+                  <label for="point">Point</label>
+                  <input type="number" name="point" id="point" class="border w-2/3 md:w-5/6 px-2 py-1">
+            </div>
+            <div class="flex justify-between gap-x-2">
+                  <label for="dl">Dateline</label>
+                  <input type="datetime-local" name="dl" id="dl" class="border w-2/3 md:w-5/6 px-2 py-1">
+            </div>
+            <div class="flex flex-col gap-y-2">
+                  <label for="description">Description</label>
+                  <textarea name="" id="" rows="10" class="border w-full px-2 py-1 resize-none"></textarea>
+            </div>
+            <button type="submit" class="bg-slate-500 text-slate-100 px-4 py-2 rounded-md w-full">
+                  Create
+            </button>
+      </form>
+</div>

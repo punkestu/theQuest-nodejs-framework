@@ -8,7 +8,7 @@
     "start": "nodemon index.js"
   },
   "prisma": {
-    "seed-user": "node prisma/seeders/User.js"
+    "seed": "node prisma/seeders/User.js"
   },
   "author": "",
   "license": "ISC",
