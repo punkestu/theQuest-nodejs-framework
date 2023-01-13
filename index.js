@@ -22,6 +22,7 @@ app.engine(
     defaultLayout: "main",
     layoutsDir: __dirname + "/views/layouts/",
     partialsDir: __dirname + "/views/partials/",
+    helpers: require("./src/hbsHelper")
   })
 );
 app.set("view engine", "hbs");
