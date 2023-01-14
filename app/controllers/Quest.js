@@ -18,6 +18,7 @@ const Quest = {
         name: req.body.name,
         point: parseInt(req.body.point),
         description: req.body.description,
+        dateline: new Date(req.body.dl),
         createdBy: {
           connect: {
             username: req.user.user,
