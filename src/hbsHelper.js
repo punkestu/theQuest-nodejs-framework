@@ -15,4 +15,11 @@ module.exports = {
 
     return accum;
   },
+  isset: (data, block) => {
+    if (data != null) {
+      return block.fn(data);
+    }
+    return block.inverse(data);
+  },
+  dateFormat: require("handlebars-dateformat"),
 };
