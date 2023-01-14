@@ -6,13 +6,13 @@ const QuestModel = require("../app/models/Quest");
 route.get("/users", async (_, res) => {
   res.send({
     msg: "Welcome",
-    data: await UserModel.all(),
+    data: await UserModel.api.all(),
   });
 });
 route.get("/quests", async (_, res) => {
   res.send({
     msg: "Welcome",
-    data: await QuestModel.all(),
+    data: await QuestModel.api.all(),
   });
 });
 module.exports = route;

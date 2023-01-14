@@ -14,7 +14,16 @@ const model = {
     return user.findFirst({
       where: { email },
     });
-  }
+  },
+  api: {
+    all: () => {
+      return user.findMany({
+        select: {
+          username: true,
+        },
+      });
+    },
+  },
 };
 
 module.exports = model;
