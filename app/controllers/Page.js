@@ -11,6 +11,12 @@ class Pages {
   static ProfilePage(req, res) {
     return res.render("pages/profile", { title: "Profile", isAuth: req.user });
   }
+  static CreateQuestPage(req, res) {
+    return res.render("pages/createQuest", {
+      title: "Create Quest",
+      isAuth: req.user,
+    });
+  }
   static NotfoundPage(req, res) {
     return res.render("pages/notfound", { title: "Oops", isAuth: req.user });
   }
