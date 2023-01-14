@@ -7,6 +7,7 @@ const {
   LoginPage,
   ProfilePage,
   CreateQuestPage,
+  QuestPage,
 } = require("../app/controllers/Page");
 const { Login, Register, Logout } = require("../app/controllers/Auth");
 const { QuestCreate } = require("../app/controllers/Quest");
@@ -63,6 +64,8 @@ route.post(
   ],
   Register
 );
+
+route.get("/quest", QuestPage);
 
 route.get("/quest/create", [isAuth], CreateQuestPage);
 route.post(

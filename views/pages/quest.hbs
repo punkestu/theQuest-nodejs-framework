@@ -12,17 +12,32 @@
             <button type="submit" class="bg-slate-400 text-white px-2 py-1 rounded-md mt-2">Filter</button>
       </form>
       <button id="toggleFilter" class="bg-slate-400 text-white px-2 py-1 rounded-md mt-2">Filter</button>
+      <a href="/quest/create" class="bg-slate-400 text-white px-2 py-1 rounded-md mt-2">Create One</a>
       <div class="flex flex-wrap justify-center justify-items-stretch mt-2 gap-2">
-            {{#forn 100}}
+            {{#each quests}}
+            {{#with this}}
             <a href="/" class="flex flex-col items-center gap-y-2 grow bg-slate-300 rounded-md p-3">
-                  <h1 class="text-2xl font-medium">Name</h1>
-                  <h2 class="text-lg">point</h2>
-                  <h2 class="text-xl">author</h2>
-                  <div class="flex gap-x-2">
-                        <h3>created at</h3>
-                        <h3>dateline</h3>
+                  <h1 class="text-2xl font-medium">{{name}}</h1>
+                  <h2 class="text-lg">Point: {{point}}</h2>
+                  <h2 class="text-xl">Author: {{createdBy.username}}</h2>
+                  <div>
+                        <div class="flex justify-between gap-x-2">
+                              <p>from</p>
+                              <h3>{{{dateFormat createdAt "DD MMMM YYYY"}}}</h3>
+                        </div>
+                        <div class="flex justify-between gap-x-2">
+                              <p>to</p>
+                              {{#isset dateline}}
+                              <h3>{{{dateFormat this "DD MMMM YYYY"}}}</h3>
+                              {{else}}
+                              <h3>no Dateline</h3>
+                              {{/isset}}
+                        </div>
                   </div>
             </a>
-            {{/forn}}
+            {{/with}}
+            {{else}}
+            <h2>Empty</h2>
+            {{/each}}
       </div>
 </div>

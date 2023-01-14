@@ -1,3 +1,5 @@
+const QuestModel = require("../models/Quest");
+
 class Pages {
   static HomePage(req, res) {
     return res.render("pages/index", { title: "Index", isAuth: req.user });
@@ -10,6 +12,14 @@ class Pages {
   }
   static ProfilePage(req, res) {
     return res.render("pages/profile", { title: "Profile", isAuth: req.user });
+  }
+  static async QuestPage(req, res) {
+    const quests = await QuestModel.all();
+    return res.render("pages/quest", {
+      title: "Quests",
+      isAuth: req.user,
+      quests,
+    });
   }
   static CreateQuestPage(req, res) {
     return res.render("pages/createQuest", {
