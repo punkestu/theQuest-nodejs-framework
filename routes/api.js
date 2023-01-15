@@ -15,4 +15,10 @@ route.get("/quests", async (_, res) => {
     data: await QuestModel.api.all(),
   });
 });
+route.get("/quest/:slug", async (req, res) => {
+  res.send({
+    msg: "Welcome",
+    data: await QuestModel.api.withSlug(req.params.slug),
+  });
+});
 module.exports = route;

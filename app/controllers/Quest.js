@@ -1,5 +1,6 @@
 const QuestModel = require("../models/Quest");
 const { validationResult } = require("express-validator");
+const slugify = require("slugify");
 
 const Quest = {
   QuestCreate: async (req, res) => {
@@ -9,13 +10,14 @@ const Quest = {
         title: "Create Quest",
         old: req.body,
         errors: errors.mapped(),
-        isAuth: req.user
+        isAuth: req.user,
       });
     }
 
     await QuestModel.create({
       data: {
         name: req.body.name,
+        slug: slugify(req.body.name, { remove: /[*+~.()'"!:@]/g }),
         point: parseInt(req.body.point),
         description: req.body.description,
         dateline: new Date(req.body.dl),
