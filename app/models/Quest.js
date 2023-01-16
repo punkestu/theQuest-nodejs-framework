@@ -1,4 +1,5 @@
 const { quest } = require("../../prisma/db");
+const slugify = require("slugify");
 
 const model = {
   ...quest,
@@ -10,7 +11,22 @@ const model = {
     });
   },
   withSlug: (slug) => {
-    return quest.findFirst({ where: { slug } });
+    return quest.findFirst({
+      where: { slug },
+      include: {
+        createdBy: true,
+      },
+    });
+  },
+  nameExist: async (name) => {
+    const slug = slugify(name, { remove: /[*+~.()'"!:@]/g });
+    const _quest = await quest.findFirst({
+      where: {
+        name,
+        slug,
+      },
+    });
+    return _quest != null;
   },
   api: {
     all: () => {
