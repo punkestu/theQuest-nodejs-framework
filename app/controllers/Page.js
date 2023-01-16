@@ -14,6 +14,15 @@ class Pages {
     return res.render("pages/profile", { title: "Profile", isAuth: req.user });
   }
   static async QuestPage(req, res) {
+    const quest = await QuestModel.withSlug(req.params.slug);
+    console.log(quest);
+    return res.render("pages/thequest", {
+      title: "Quest",
+      isAuth: req.user,
+      quest,
+    });
+  }
+  static async QuestsPage(req, res) {
     const quests = await QuestModel.all();
     return res.render("pages/quest", {
       title: "Quests",
