@@ -1,3 +1,8 @@
+const showdown = require("showdown");
+const converter = new showdown.Converter();
+
+const Handlebars = require("handlebars");
+
 module.exports = {
   for: (start, lim, inc, block) => {
     var accum = "";
@@ -20,6 +25,10 @@ module.exports = {
       return block.fn(data);
     }
     return block.inverse(data);
+  },
+  tomd: (data) => {
+    console.log(converter.makeHtml(data));
+    return new Handlebars.SafeString(converter.makeHtml(data));
   },
   dateFormat: require("handlebars-dateformat"),
 };
