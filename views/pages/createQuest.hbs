@@ -4,7 +4,7 @@
             <div>
                   <div class="flex justify-between gap-x-2">
                         <label for="name">Quest name</label>
-                        <input type="text" name="name" id="name" class="border w-2/3 md:w-5/6 px-2 py-1">
+                        <input value="{{old.name}}" type="text" name="name" id="name" class="border w-2/3 md:w-5/6 px-2 py-1">
                   </div>
                   <p class="text-red-600 text-sm text-right mt-1">
                         {{errors.name.msg}}
@@ -13,7 +13,7 @@
             <div>
                   <div class="flex justify-between gap-x-2">
                         <label for="point">Point</label>
-                        <input type="number" name="point" id="point" class="border w-2/3 md:w-5/6 px-2 py-1">
+                        <input value="{{old.point}}" type="number" name="point" id="point" class="border w-2/3 md:w-5/6 px-2 py-1">
                   </div>
                   <p class="text-red-600 text-sm text-right mt-1">
                         {{errors.point.msg}}
@@ -21,12 +21,12 @@
             </div>
             <div class="flex justify-between gap-x-2">
                   <label for="dl">Dateline</label>
-                  <input type="datetime-local" name="dl" id="dl" class="border w-2/3 md:w-5/6 px-2 py-1">
+                  <input value="{{old.dl}}" type="datetime-local" name="dl" id="dl" class="border w-2/3 md:w-5/6 px-2 py-1">
             </div>
             <div class="flex flex-col gap-y-2">
                   <label for="description">Description</label>
                   <textarea name="description" id="description" rows="10"
-                        class="border w-full px-2 py-1 resize-none"></textarea>
+                        class="border w-full px-2 py-1 resize-none">{{old.description}}</textarea>
             </div>
             <button type="submit" class="btn w-full">
                   Create
