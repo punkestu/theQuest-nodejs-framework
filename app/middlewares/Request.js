@@ -1,4 +1,5 @@
 const UserModel = require("../models/User");
+const QuestModel = require("../models/Quest");
 
 class Request {
   static async usernameUnique(username) {
@@ -24,6 +25,11 @@ class Request {
   static async passwordVal(password, { req }) {
     if (req.user && req.user.password != password) {
       throw new Error("Password invalid");
+    }
+  }
+  static async questNameCreate(name) {
+    if (await QuestModel.nameExist(name)) {
+      throw new Error("Use other name please");
     }
   }
 }

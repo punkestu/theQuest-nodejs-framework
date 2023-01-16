@@ -7,6 +7,7 @@ const {
   LoginPage,
   ProfilePage,
   CreateQuestPage,
+  QuestsPage,
   QuestPage,
 } = require("../app/controllers/Page");
 const { Login, Register, Logout } = require("../app/controllers/Auth");
@@ -18,6 +19,7 @@ const {
   passwordVal,
   usernameUnique,
   emailUnique,
+  questNameCreate,
 } = require("../app/middlewares/Request");
 
 route.use("/", authToken);
@@ -65,18 +67,19 @@ route.post(
   Register
 );
 
-route.get("/quest", QuestPage);
+route.get("/quest", QuestsPage);
 
 route.get("/quest/create", [isAuth], CreateQuestPage);
 route.post(
   "/quest/create",
   [
     isAuth,
-    body("name").not().isEmpty().withMessage("Set the name please"),
+    body("name").not().isEmpty().withMessage("Set the name please").custom(questNameCreate),
     body("point").not().isEmpty().withMessage("You need a point for quest"),
   ],
   QuestCreate
 );
+route.get("/quest/:slug", QuestPage);
 route.get("/", HomePage);
 
 route.use("/", [authToken], NotfoundPage);
