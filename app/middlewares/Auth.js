@@ -8,14 +8,18 @@ class Auth {
     if (token == null) {
       req.user = null;
     } else {
-      req.user = await verify(token, process.env.TOKEN_SECRET, async (err, user) => {
-        const tokenExists = await TokenModel.exists(token);
-        if (err || !tokenExists) {
-          return null;
-        } else {
-          return user;
+      req.user = await verify(
+        token,
+        process.env.TOKEN_SECRET,
+        async (err, user) => {
+          const tokenExists = await TokenModel.exists(token);
+          if (err || !tokenExists) {
+            return null;
+          } else {
+            return user;
+          }
         }
-      });
+      );
     }
 
     next();
