@@ -9,9 +9,14 @@ const {
   CreateQuestPage,
   QuestsPage,
   QuestPage,
+  UpdateQuestPage,
 } = require("../app/controllers/Page");
 const { Login, Register, Logout } = require("../app/controllers/Auth");
-const { QuestCreate, QuestDelete } = require("../app/controllers/Quest");
+const {
+  QuestCreate,
+  QuestDelete,
+  QuestUpdate,
+} = require("../app/controllers/Quest");
 
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
 const {
@@ -20,6 +25,7 @@ const {
   usernameUnique,
   emailUnique,
   questNameCreate,
+  questNameUpdate,
 } = require("../app/middlewares/Request");
 
 route.use("/", authToken);
@@ -82,6 +88,20 @@ route.post(
     body("point").not().isEmpty().withMessage("You need a point for quest"),
   ],
   QuestCreate
+);
+route.get("/quest/update/:slug", [isAuth], UpdateQuestPage);
+route.post(
+  "/quest/update/:slug",
+  [
+    isAuth,
+    body("name")
+      .not()
+      .isEmpty()
+      .withMessage("Set the name please")
+      .custom(questNameUpdate),
+    body("point").not().isEmpty().withMessage("You need a point for quest"),
+  ],
+  QuestUpdate
 );
 route.get("/quest/delete/:slug", [isAuth], QuestDelete);
 route.get("/quest/:slug", QuestPage);

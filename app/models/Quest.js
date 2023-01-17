@@ -28,6 +28,16 @@ const model = {
     });
     return _quest != null;
   },
+  update: {
+    withSlug: (slug, data) => {
+      return quest.update({
+        where: {
+          slug,
+        },
+        data
+      });
+    },
+  },
   delete: {
     withSlug: (slug) => {
       return quest.delete({

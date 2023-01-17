@@ -1,5 +1,6 @@
 const UserModel = require("../models/User");
 const QuestModel = require("../models/Quest");
+const slugify = require("slugify");
 
 class Request {
   static async usernameUnique(username) {
@@ -27,7 +28,15 @@ class Request {
       throw new Error("Password invalid");
     }
   }
-  static async questNameCreate(name) {
+  static async questNameUpdate(name, { req }) {
+    const nslug = slugify(name, { remove: /[*+~.()'"!:@]/g });
+    if (nslug != req.params.slug) {
+      if (await QuestModel.nameExist(name)) {
+        throw new Error("Use other name please");
+      }
+    }
+  }
+  static async questNameCreate(name, { req }) {
     if (await QuestModel.nameExist(name)) {
       throw new Error("Use other name please");
     }
