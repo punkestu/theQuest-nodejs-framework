@@ -20,6 +20,13 @@ module.exports = {
 
     return accum;
   },
+  ifContaint: (context, haystack, needle, block) => {
+    if (haystack.includes(needle)) {
+      return block.fn(context);
+    }
+
+    return block.inverse(context);
+  },
   ifEq: (context, variable, data, block) => {
     if (variable === data) {
       return block.fn(context);
