@@ -20,6 +20,13 @@ module.exports = {
 
     return accum;
   },
+  ifEq: (context, variable, data, block) => {
+    if (variable === data) {
+      return block.fn(context);
+    }
+
+    return block.inverse(context);
+  },
   isset: (data, block) => {
     if (data != null) {
       return block.fn(data);
@@ -27,7 +34,6 @@ module.exports = {
     return block.inverse(data);
   },
   tomd: (data) => {
-    console.log(converter.makeHtml(data));
     return new Handlebars.SafeString(converter.makeHtml(data));
   },
   dateFormat: require("handlebars-dateformat"),
