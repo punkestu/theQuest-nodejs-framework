@@ -27,6 +27,13 @@ module.exports = {
 
     return block.inverse(context);
   },
+  ifNEq: (context, variable, data, block) => {
+    if (variable != data) {
+      return block.fn(context);
+    }
+
+    return block.inverse(context);
+  },
   isset: (data, block) => {
     if (data != null) {
       return block.fn(data);

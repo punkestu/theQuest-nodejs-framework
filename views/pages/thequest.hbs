@@ -3,7 +3,9 @@
       <h1 class="text-4xl sm:text-5xl font-mono font-bold">{{name}}</h1>
       {{/with}}
       <div class="flex w-full gap-x-2">
+            {{#ifNEq this isAuth.user quest.createdBy.username}}
             <a href="/quest/submit/{{quest.slug}}" class="btn w-1/6">Create submition</a>
+            {{/ifNEq}}
             {{#ifEq this isAuth.user quest.createdBy.username}}
             <a href="/quest/update/{{quest.slug}}" class="btn w-1/6">Update</a>
             <a href="/quest/delete/{{quest.slug}}" class="btn w-1/6">Delete</a>
