@@ -11,7 +11,7 @@ const {
   QuestPage,
 } = require("../app/controllers/Page");
 const { Login, Register, Logout } = require("../app/controllers/Auth");
-const { QuestCreate } = require("../app/controllers/Quest");
+const { QuestCreate, QuestDelete } = require("../app/controllers/Quest");
 
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
 const {
@@ -74,11 +74,16 @@ route.post(
   "/quest/create",
   [
     isAuth,
-    body("name").not().isEmpty().withMessage("Set the name please").custom(questNameCreate),
+    body("name")
+      .not()
+      .isEmpty()
+      .withMessage("Set the name please")
+      .custom(questNameCreate),
     body("point").not().isEmpty().withMessage("You need a point for quest"),
   ],
   QuestCreate
 );
+route.get("/quest/delete/:slug", [isAuth], QuestDelete);
 route.get("/quest/:slug", QuestPage);
 route.get("/", HomePage);
 

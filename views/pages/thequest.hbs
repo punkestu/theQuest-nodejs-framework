@@ -1,7 +1,15 @@
-<div class="mt-14 px-4 py-3 flex mx-4 flex-col items-start">
+<div class="mt-14 px-4 py-3 flex mx-4 flex-col items-start gap-y-2">
       {{#with quest}}
       <h1 class="text-4xl sm:text-5xl font-mono font-bold">{{name}}</h1>
-      <a href="" class="btn">Create submition</a>
+      {{/with}}
+      <div class="flex w-full gap-x-2">
+            <a href="/quest/submit/{{quest.slug}}" class="btn w-1/6">Create submition</a>
+            {{#ifEq this isAuth.user quest.createdBy.username}}
+            <a href="/quest/update/{{quest.slug}}" class="btn w-1/6">Update</a>
+            <a href="/quest/delete/{{quest.slug}}" class="btn w-1/6">Delete</a>
+            {{/ifEq}}
+      </div>
+      {{#with quest}}
       <h2>Point : {{point}}</h2>
       <h2>Created by : {{createdBy.username}}</h2>
       <h2>Description :</h2>

@@ -15,7 +15,6 @@ class Pages {
   }
   static async QuestPage(req, res) {
     const quest = await QuestModel.withSlug(req.params.slug);
-    console.log(quest);
     return res.render("pages/thequest", {
       title: "Quest",
       isAuth: req.user,

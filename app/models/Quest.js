@@ -28,6 +28,15 @@ const model = {
     });
     return _quest != null;
   },
+  delete: {
+    withSlug: (slug) => {
+      return quest.delete({
+        where: {
+          slug,
+        },
+      });
+    },
+  },
   api: {
     all: () => {
       return quest.findMany({
