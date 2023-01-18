@@ -1,19 +1,50 @@
-<div class="h-screen flex flex-col gap-y-4 justify-center items-center">
+<div class="pt-16 px-4 py-3 flex border h-screen flex-col items-center">
+      {{#with user}}
       <img src="" alt="">
-      <h1 class="text-3xl sm:text-5xl font-mono font-bold text-center">Moch. Bima Pangestu</h1>
+      <h1 class="text-3xl sm:text-5xl font-mono font-bold text-center">{{username}}</h1>
       <h2 class="text-2xl sm:text-3xl">The Chief</h2>
-      <div class="flex flex-row justify-center gap-1 flex-wrap w-4/5 md:w-2/5">
-            <div class="flex flex-col items-center border py-2 w-2/5">
-                  <h3 class="text-2xl sm:text-3xl font-medium">Ranking</h3>
-                  <h4 class="text-xl sm:text-2xl">1st</h4>
+      <div class="flex flex-col justify-center gap-1 w-4/5 md:w-2/5">
+            <div class="flex gap-x-1 w-full">
+                  <div class="flex flex-col items-center border py-2 grow">
+                        <h3 class="text-2xl sm:text-3xl font-medium">Ranking</h3>
+                        <h4 class="text-xl sm:text-2xl">1st</h4>
+                  </div>
+                  <div class="flex flex-col items-center border py-2 grow">
+                        <h3 class="text-2xl sm:text-3xl font-medium">Point</h3>
+                        <h4 class="text-xl sm:text-2xl">1000</h4>
+                  </div>
             </div>
-            <div class="flex flex-col items-center border py-2 w-2/5">
-                  <h3 class="text-2xl sm:text-3xl font-medium">Point</h3>
-                  <h4 class="text-xl sm:text-2xl">1000</h4>
-            </div>
-            <div class="flex flex-col items-center border py-2 w-2/5">
+            <div class="flex flex-col self-stretch items-center border py-2 w-full">
                   <h3 class="text-2xl sm:text-3xl font-medium">Quests</h3>
-                  <h4 class="text-xl sm:text-2xl">8</h4>
+                  <div class="flex gap-x-2">
+                        <h4 class="text-xl sm:text-2xl">Created: 8</h4>
+                        <h4 class="text-xl sm:text-2xl">Finished: 8</h4>
+                  </div>
             </div>
       </div>
+      <div class="flex gap-x-2 mt-4 h-1/2">
+            <div class="flex flex-col items-center w-1/2">
+                  <h1>Created Quests</h1>
+                  <div class="flex gap-2 flex-wrap border p-3 overflow-y-scroll">
+                        {{#forn 20}}
+                        <a href="" class="border plain p-2 rounded-md grow">
+                              <h2>Quest Name</h2>
+                              <h3>Point</h3>
+                        </a>
+                        {{/forn}}
+                  </div>
+            </div>
+            <div class="flex flex-col items-center w-1/2">
+                  <h1>Finished Quests</h1>
+                  <div class="flex gap-2 flex-wrap border p-3 overflow-y-scroll">
+                        {{#forn 20}}
+                        <a href="" class="border plain p-2 rounded-md grow">
+                              <h2>Quest Name</h2>
+                              <h3>Point</h3>
+                        </a>
+                        {{/forn}}
+                  </div>
+            </div>
+      </div>
+      {{/with}}
 </div>
