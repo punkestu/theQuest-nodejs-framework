@@ -1,4 +1,5 @@
 const QuestModel = require("../models/Quest");
+const UserModel = require("../models/User");
 
 class Pages {
   static HomePage(req, res) {
@@ -10,8 +11,9 @@ class Pages {
   static RegisterPage(_, res) {
     return res.render("pages/register", { title: "Register" });
   }
-  static ProfilePage(req, res) {
-    return res.render("pages/profile", { title: "Profile", isAuth: req.user });
+  static async ProfilePage(req, res) {
+    const user = await UserModel.withUsername(req.params.slug);
+    return res.render("pages/profile", { title: "Profile", isAuth: req.user, user });
   }
   static async QuestPage(req, res) {
     const quest = await QuestModel.withSlug(req.params.slug);

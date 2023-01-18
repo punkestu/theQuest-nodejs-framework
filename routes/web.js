@@ -29,7 +29,7 @@ const {
 } = require("../app/middlewares/Request");
 
 route.use("/", authToken);
-route.get("/profile", [isAuth], ProfilePage);
+route.get("/profile/:slug", ProfilePage);
 
 // authentication
 route.get("/login", [notAuth], LoginPage);
