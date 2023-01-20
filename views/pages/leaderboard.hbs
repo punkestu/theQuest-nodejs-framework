@@ -1,0 +1,27 @@
+<div class="pt-20 h-screen overflow-y-scroll px-4 py-3 flex flex-col items-center">
+      <h1 class="text-4xl sm:text-5xl font-mono font-bold">Leaderboard</h1>
+      <div class="flex justify-between border mt-2 pl-4 pr-8 py-2 w-2/3">
+            <div class="flex gap-x-4 justify-between w-1/6">
+                  <h2 class="font-medium">Rank</h2>
+                  <h2>Name</h2>
+            </div>
+            <div class="flex gap-x-4">
+                  <h2>Point</h2>
+                  <h2>N-Quest</h2>
+            </div>
+      </div>
+      <div class="flex flex-col gap-y-4 mt-2 h-2/3 w-2/3 overflow-y-scroll">
+            {{#for 1 100 1}}
+            <div class="flex justify-between border px-4 py-2">
+                  <div class="flex justify-between w-1/6 gap-x-4">
+                        <h2>#{{this}}</h2>
+                        <h2>Name</h2>
+                  </div>
+                  <div class="flex gap-x-4">
+                        <h2>Point</h2>
+                        <h2>N-Quest</h2>
+                  </div>
+            </div>
+            {{/for}}
+      </div>
+</div>
