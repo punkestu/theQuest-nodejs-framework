@@ -39,13 +39,13 @@ model Quest {
 }
 
 model File {
-  id        String      @id
+  id        String      @id @default(uuid())
   fileName  String      @unique
   Submition Submition[]
 }
 
 model Submition {
-  id        String  @id
+  id        String  @id @default(uuid())
   createdBy User    @relation(fields: [creator], references: [id])
   creator   String  @db.VarChar(64)
   theQuest  Quest   @relation(fields: [questId], references: [id])
