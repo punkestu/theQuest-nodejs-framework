@@ -11,38 +11,38 @@
                   </div>
                   <div class="flex flex-col items-center border py-2 grow">
                         <h3 class="text-2xl sm:text-3xl font-medium">Point</h3>
-                        <h4 class="text-xl sm:text-2xl">1000</h4>
+                        <h4 class="text-xl sm:text-2xl">{{sumSubmition Submition}}</h4>
                   </div>
             </div>
             <div class="flex flex-col self-stretch items-center border py-2 w-full">
                   <h3 class="text-2xl sm:text-3xl font-medium">Quests</h3>
                   <div class="flex gap-x-2">
-                        <h4 class="text-xl sm:text-2xl">Created: 8</h4>
-                        <h4 class="text-xl sm:text-2xl">Finished: 8</h4>
+                        <h4 class="text-xl sm:text-2xl">Created: {{count createdQuest}}</h4>
+                        <h4 class="text-xl sm:text-2xl">Finished: {{count Submition}}</h4>
                   </div>
             </div>
       </div>
-      <div class="flex gap-x-2 mt-4 h-1/2">
+      <div class="flex gap-x-2 mt-4 h-1/2 w-full">
             <div class="flex flex-col items-center w-1/2">
                   <h1>Created Quests</h1>
-                  <div class="flex gap-2 flex-wrap border p-3 overflow-y-scroll">
-                        {{#forn 20}}
-                        <a href="" class="border plain p-2 rounded-md grow">
-                              <h2>Quest Name</h2>
-                              <h3>Point</h3>
+                  <div class="flex gap-2 flex-wrap border p-3 w-full overflow-y-scroll">
+                        {{#each createdQuest}}
+                        <a href="/quest/" class="border plain p-2 rounded-md grow">
+                              <h2>{{name}}</h2>
+                              <h3>{{point}}</h3>
                         </a>
-                        {{/forn}}
+                        {{/each}}
                   </div>
             </div>
             <div class="flex flex-col items-center w-1/2">
                   <h1>Finished Quests</h1>
-                  <div class="flex gap-2 flex-wrap border p-3 overflow-y-scroll">
-                        {{#forn 20}}
-                        <a href="" class="border plain p-2 rounded-md grow">
-                              <h2>Quest Name</h2>
-                              <h3>Point</h3>
+                  <div class="flex gap-2 flex-wrap border p-3 w-full overflow-y-scroll">
+                        {{#each Submition}}
+                        <a href="/quest/" class="border plain p-2 rounded-md grow">
+                              <h2>{{theQuest.name}}</h2>
+                              <h3>{{theQuest.point}}</h3>
                         </a>
-                        {{/forn}}
+                        {{/each}}
                   </div>
             </div>
       </div>

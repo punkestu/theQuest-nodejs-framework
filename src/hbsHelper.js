@@ -12,6 +12,14 @@ module.exports = {
 
     return accum;
   },
+  count: (list) => {
+    return list.length;
+  },
+  sumSubmition: (list) => {
+    return list.reduce((accumulator, object) => {
+      return accumulator + object.theQuest.point;
+    }, 0);
+  },
   forn: (n, block) => {
     var accum = "";
     for (let i = 0; i < n; i++) {

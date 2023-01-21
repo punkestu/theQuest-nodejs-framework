@@ -12,8 +12,23 @@ class Pages {
     return res.render("pages/register", { title: "Register" });
   }
   static async ProfilePage(req, res) {
-    const user = await UserModel.withUsername(req.params.slug);
-    return res.render("pages/profile", { title: "Profile", isAuth: req.user, user });
+    // const user = await UserModel.withUsername(req.params.slug);
+    const user = await UserModel.findFirst({
+      where: { username: req.params.slug },
+      include: {
+        createdQuest: true,
+        Submition: {
+          include: {
+            theQuest: true,
+          },
+        },
+      },
+    });
+    return res.render("pages/profile", {
+      title: "Profile",
+      isAuth: req.user,
+      user,
+    });
   }
   static async QuestPage(req, res) {
     const quest = await QuestModel.withSlug(req.params.slug);
@@ -40,7 +55,7 @@ class Pages {
   }
   static async UpdateQuestPage(req, res) {
     const quest = await QuestModel.withSlug(req.params.slug);
-    if(quest == null){
+    if (quest == null) {
       return res.render("pages/notfound");
     }
 
@@ -48,7 +63,7 @@ class Pages {
       title: "Update Quest",
       isAuth: req.user,
       old: quest,
-      command: "update/"+req.params.slug,
+      command: "update/" + req.params.slug,
     });
   }
   static NotfoundPage(req, res) {
