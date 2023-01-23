@@ -26,3 +26,13 @@ $("#toggleFilter").click(() => {
     $("#toggleFilter").text() == "Hide" ? "Filter" : "Hide"
   );
 });
+
+$("#request").change((e) => {
+  $("#reqLabel").removeClass("text-slate-400");
+  $("#reqLabel").addClass("text-slate-700");
+  $("#reqLabel").html(
+    $("#request")
+      .val()
+      .replace(/C:\\fakepath\\/i, "")
+  );
+});
