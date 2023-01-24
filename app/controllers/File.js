@@ -1,16 +1,27 @@
+const { file } = require("../../prisma/db");
+
 const Controller = {
-  uploadSaver: (req, res) => {
-    if (!req.files.request) {
-      return res.sendStatus(400);
+  uploadSaver: async (req) => {
+    if (req.files && req.files.request) {
+      req.files.request.mv(
+        __dirname + "/../../uploads/" + req.files.request.name,
+        (err) => {
+          if (err) {
+            return err;
+          }
+        }
+      );
+      await file.upsert({
+        where: {
+          fileName: req.files.request.name || "",
+        },
+        update: {},
+        create: {
+          fileName: req.files.request.name,
+        },
+      });
     }
-    req.files.request.mv(
-      __dirname + "/../../uploads/" + req.files.request.name,
-      (err) => {
-        console.log("error");
-        console.log(err);
-      }
-    );
-    return res.sendStatus(200);
+    return "OK";
   },
 };
 
