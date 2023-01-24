@@ -27,6 +27,8 @@ const {
   questNameCreate,
   questNameUpdate,
 } = require("../app/middlewares/Request");
+const fileUpload = require("express-fileupload");
+const { submitQuest } = require("../app/controllers/Submition");
 
 route.use("/", authToken);
 route.get("/profile/:slug", ProfilePage);
@@ -89,6 +91,22 @@ route.post(
   ],
   QuestCreate
 );
+
+route.get("/quest/submit/:slug", [isAuth], (req, res) => {
+  return res.render("pages/createSubmition", {
+    slug: req.params.slug,
+  });
+});
+
+route.post(
+  "/quest/submit/:slug",
+  [isAuth],
+  fileUpload({
+    createParentPath: true,
+  }),
+  submitQuest
+);
+
 route.get("/quest/update/:slug", [isAuth], UpdateQuestPage);
 route.post(
   "/quest/update/:slug",
@@ -105,6 +123,9 @@ route.post(
 );
 route.get("/quest/delete/:slug", [isAuth], QuestDelete);
 route.get("/quest/:slug", QuestPage);
+route.get("/leaderboard", (_, res) => {
+  return res.render("pages/leaderboard");
+});
 route.get("/", HomePage);
 
 route.use("/", [authToken], NotfoundPage);
