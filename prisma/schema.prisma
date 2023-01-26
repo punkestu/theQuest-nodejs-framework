@@ -61,4 +61,6 @@ model Judge {
   createdAt   DateTime  @default(now()) @db.Timestamptz
   submition   Submition @relation(fields: [submitionId], references: [id])
   submitionId String    @unique
+  comment     String?
+  point       Int
 }
