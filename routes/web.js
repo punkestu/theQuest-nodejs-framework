@@ -122,6 +122,34 @@ route.post(
   QuestUpdate
 );
 route.get("/quest/delete/:slug", [isAuth], QuestDelete);
+route.get("/quest/:slug/:author", (req, res) => {
+  const dummy = {
+    theQuest: {
+      name: "dummy Quest",
+      point: 1000,
+      createdBy: {
+        username: "testUse"
+      }
+    },
+    comment: "# This is comment",
+    theFile: {
+      fileName: "TestFile.pdf",
+    },
+  };
+  const judge = {
+    point: 100,
+    comment: "# this is comment from quest author",
+    createdAt: "10 January 2023",
+  };
+  // const judge = null;
+  res.render("pages/submition", {
+    slug: req.params.slug,
+    author: req.params.author,
+    data: dummy,
+    judge,
+    isAuth: { user: "testUser" },
+  });
+});
 route.get("/quest/:slug", QuestPage);
 route.get("/leaderboard", (_, res) => {
   return res.render("pages/leaderboard");

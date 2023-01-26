@@ -1,0 +1,48 @@
+<div class="pt-20 h-screen overflow-y-scroll px-4 py-3 flex flex-col items-center">
+      {{#with data}}
+      <h1 class="text-3xl sm:text-4xl font-mono font-bold">{{theQuest.name}}</h1>
+      <h2>Max-point: {{{theQuest.point}}}</h2>
+      {{/with}}
+      {{!-- if you quest author --}}
+      {{#ifEq this isAuth.user data.theQuest.createdBy.username}}
+      <form action="/quest/:slug/:author/point" class="w-1/2 gap-y-2 mt-2 flex flex-col" method="post">
+            <input type="number" class="text-center border p-2 rounded-md" name="point" id="point"
+                  placeholder="point here ..." {{#if judge}} value="{{judge.point}}" {{/if}} min="0" max="100">
+            {{!-- max --}}
+            <textarea name="comment" id="comment" class="border p-2 rounded-md" placeholder="Comment ..." cols="30"
+                  rows="10">{{#if judge}}{{judge.comment}}{{/if}}</textarea>
+            <button type="submit" class="btn">Judge</button>
+      </form>
+      {{else}}
+      {{!-- else --}}
+      <div class="flex flex-col items-center w-1/2 mt-2">
+            <h2>The point is</h2>
+            {{#if judge}}
+            <h1>{{judge.point}}</h1>
+            <h2 class="self-start">Comment</h2>
+            <div class="border p-2 mt-2 w-full">
+                  {{tomd judge.comment}}
+            </div>
+            {{else}}
+            <h1>-</h1>
+            {{/if}}
+            {{!-- "-" if not judge yet --}}
+      </div>
+      {{/ifEq}}
+      {{!-- endif --}}
+      <hr class="w-1/2 my-2">
+      <div class="mt-2 w-1/2 flex flex-col gap-y-2">
+            <h2>Submited by: {{author}}</h2>
+            {{#if data.theFile}}
+            <a href="" class="btn w-full">[ &raquo; ] {{data.theFile.fileName}}</a>
+            {{/if}}
+            <div>
+                  <h3>Comment</h3>
+                  <div class="border p-2 mt-2">
+                        {{tomd data.comment}}
+                        {{!-- <h1>This will become comment</h1>
+                        <p>and so on ...</p> --}}
+                  </div>
+            </div>
+      </div>
+</div>

@@ -50,7 +50,17 @@ model Submition {
   creator   String  @db.VarChar(64)
   theQuest  Quest   @relation(fields: [questId], references: [id])
   questId   String  @db.VarChar(64)
-  theFile   File?    @relation(fields: [fileId], references: [id])
+  theFile   File?   @relation(fields: [fileId], references: [id])
   fileId    String?
   comment   String?
+  Judge     Judge[]
+}
+
+model Judge {
+  id          String    @id
+  createdAt   DateTime  @default(now()) @db.Timestamptz
+  submition   Submition @relation(fields: [submitionId], references: [id])
+  submitionId String    @unique
+  comment     String?
+  point       Int
 }

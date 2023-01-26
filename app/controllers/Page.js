@@ -32,11 +32,15 @@ class Pages {
   }
   static async QuestPage(req, res) {
     const quest = await QuestModel.withSlug(req.params.slug);
-    return res.render("pages/thequest", {
-      title: "Quest",
-      isAuth: req.user,
-      quest,
-    });
+    if (!quest) {
+      return res.render("pages/notfound", { title: "Oops", isAuth: req.user });
+    } else {
+      return res.render("pages/thequest", {
+        title: "Quest",
+        isAuth: req.user,
+        quest,
+      });
+    }
   }
   static async QuestsPage(req, res) {
     const quests = await QuestModel.all();
