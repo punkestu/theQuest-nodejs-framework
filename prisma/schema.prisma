@@ -57,7 +57,7 @@ model Submition {
 }
 
 model Judge {
-  id          String    @id
+  id          String    @id @default(uuid())
   createdAt   DateTime  @default(now()) @db.Timestamptz
   submition   Submition @relation(fields: [submitionId], references: [id])
   submitionId String    @unique
