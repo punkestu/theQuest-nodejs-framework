@@ -18,5 +18,16 @@
       <div class="border w-4/5 p-2">
             {{tomd description}}
       </div>
+      {{!-- {{/with}} --}}
+      {{!-- {{#with submition}} --}}
+      <h2>Submition :</h2>
+      <div class="w-4/5 border p-2 flex flex-wrap gap-2">
+            {{#each Submition}}
+            <a href="/quest/:slug/:author" class="plain grow border p-2">
+                  <h3>By : {{createdBy.username}}</h3>
+                  <h3>Point : {{#if Judge}}{{Judge.point}}{{else}}-{{/if}}</h3>
+            </a>
+            {{/each}}
+      </div>
       {{/with}}
 </div>
