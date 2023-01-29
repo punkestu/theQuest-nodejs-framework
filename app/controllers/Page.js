@@ -1,17 +1,17 @@
 const QuestModel = require("../models/Quest");
 const UserModel = require("../models/User");
 
-class Pages {
-  static HomePage(req, res) {
+const Controller = {
+  HomePage: (req, res) => {
     return res.render("pages/index", { title: "Index", isAuth: req.user });
-  }
-  static LoginPage(_, res) {
+  },
+  LoginPage: (_, res) => {
     return res.render("pages/login", { title: "Login" });
-  }
-  static RegisterPage(_, res) {
+  },
+  RegisterPage: (_, res) => {
     return res.render("pages/register", { title: "Register" });
-  }
-  static async ProfilePage(req, res) {
+  },
+  ProfilePage: async (req, res) => {
     // const user = await UserModel.withUsername(req.params.slug);
     const user = await UserModel.findFirst({
       where: { username: req.params.slug },
@@ -29,8 +29,8 @@ class Pages {
       isAuth: req.user,
       user,
     });
-  }
-  static async QuestPage(req, res) {
+  },
+  QuestPage: async (req, res) => {
     const quest = await QuestModel.withSlug(req.params.slug);
     if (!quest) {
       return res.render("pages/notfound", { title: "Oops", isAuth: req.user });
@@ -41,23 +41,23 @@ class Pages {
         quest,
       });
     }
-  }
-  static async QuestsPage(req, res) {
+  },
+  QuestsPage: async (req, res) => {
     const quests = await QuestModel.all();
     return res.render("pages/quest", {
       title: "Quests",
       isAuth: req.user,
       quests,
     });
-  }
-  static CreateQuestPage(req, res) {
+  },
+  CreateQuestPage: (req, res) => {
     return res.render("pages/createQuest", {
       title: "Create Quest",
       isAuth: req.user,
       command: "create",
     });
-  }
-  static async UpdateQuestPage(req, res) {
+  },
+  UpdateQuestPage: async (req, res) => {
     const quest = await QuestModel.withSlug(req.params.slug);
     if (quest == null) {
       return res.render("pages/notfound");
@@ -69,10 +69,46 @@ class Pages {
       old: quest,
       command: "update/" + req.params.slug,
     });
-  }
-  static NotfoundPage(req, res) {
+  },
+  judgePage: (req, res) => {
+    const dummy = {
+      theQuest: {
+        name: "dummy Quest",
+        point: 1000,
+        createdBy: {
+          username: "testUse",
+        },
+      },
+      comment: "# This is comment",
+      theFile: {
+        fileName: "TestFile.pdf",
+      },
+    };
+    const judge = {
+      point: 100,
+      comment: "# this is comment from quest author",
+      createdAt: "10 January 2023",
+    };
+    // const judge = null;
+    res.render("pages/submition", {
+      slug: req.params.slug,
+      author: req.params.author,
+      data: dummy,
+      judge,
+      isAuth: { user: "testUser" },
+    });
+  },
+  submitionPage: (req, res) => {
+    return res.render("pages/createSubmition", {
+      slug: req.params.slug,
+    });
+  },
+  leaderBoardPage: (req, res) => {
+    return res.render("pages/leaderboard");
+  },
+  NotfoundPage: (req, res) => {
     return res.render("pages/notfound", { title: "Oops", isAuth: req.user });
-  }
-}
+  },
+};
 
-module.exports = Pages;
+module.exports = Controller;

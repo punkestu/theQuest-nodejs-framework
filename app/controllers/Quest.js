@@ -11,6 +11,7 @@ const Quest = {
         old: req.body,
         errors: errors.mapped(),
         isAuth: req.user,
+        command: "create",
       });
     }
 
@@ -47,7 +48,7 @@ const Quest = {
       slug: slugify(req.body.name, { remove: /[*+~.()'"!:@]/g }),
       point: parseInt(req.body.point),
       description: req.body.description,
-      dateline: new Date(req.body.dl)
+      dateline: new Date(req.body.dl),
     });
 
     return res.redirect("/quest");
