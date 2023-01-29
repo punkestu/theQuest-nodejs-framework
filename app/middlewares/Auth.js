@@ -1,8 +1,8 @@
 const TokenModel = require("../models/Token");
 const { verify } = require("jsonwebtoken");
 
-class Auth {
-  static async authToken(req, _, next) {
+const Auth = {
+  authToken: async (req, _, next) => {
     const authHeader = req.cookies["jwt"];
     const token = authHeader;
     if (token == null) {
@@ -23,19 +23,19 @@ class Auth {
     }
 
     next();
-  }
-  static notAuth(req, res, next) {
+  },
+  notAuth: (req, res, next) => {
     if (req.user != null) {
       return res.redirect("/");
     }
     next();
-  }
-  static isAuth(req, res, next) {
+  },
+  isAuth: (req, res, next) => {
     if (req.user == null) {
       return res.redirect("/login");
     }
     next();
-  }
-}
+  },
+};
 
 module.exports = Auth;
