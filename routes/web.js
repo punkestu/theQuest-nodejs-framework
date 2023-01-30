@@ -21,7 +21,7 @@ const {
   QuestDelete,
   QuestUpdate,
 } = require("../app/controllers/Quest");
-const { submitQuest } = require("../app/controllers/Submition");
+const { submitQuest, judgeSubmition } = require("../app/controllers/Submition");
 
 // Middlewares
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
@@ -57,7 +57,7 @@ route.post("/quest/update/:slug", [isAuth, postQuestUpdate], QuestUpdate);
 route.get("/quest/delete/:slug", [isAuth], QuestDelete);
 
 route.get("/quest/:slug/:author", [isAuth], judgePage); // TODO judgePage on Controller
-// TODO create post quest judge
+route.post("/quest/:slug/:author/point", [isAuth], judgeSubmition);
 
 route.get("/quest/:slug", QuestPage);
 
