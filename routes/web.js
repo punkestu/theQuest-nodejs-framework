@@ -1,5 +1,6 @@
 const route = require("express").Router();
-const { body } = require("express-validator");
+
+// Controllers
 const {
   HomePage,
   NotfoundPage,
@@ -10,6 +11,9 @@ const {
   QuestsPage,
   QuestPage,
   UpdateQuestPage,
+  judgePage,
+  leaderBoardPage,
+  submitionPage,
 } = require("../app/controllers/Page");
 const { Login, Register, Logout } = require("../app/controllers/Auth");
 const {
@@ -17,18 +21,17 @@ const {
   QuestDelete,
   QuestUpdate,
 } = require("../app/controllers/Quest");
+const { submitQuest, judgeSubmition } = require("../app/controllers/Submition");
 
+// Middlewares
 const { isAuth, notAuth, authToken } = require("../app/middlewares/Auth");
 const {
-  usernameGet,
-  passwordVal,
-  usernameUnique,
-  emailUnique,
-  questNameCreate,
-  questNameUpdate,
+  postLogin,
+  postRegister,
+  postQuestCreate,
+  postSubmit,
+  postQuestUpdate,
 } = require("../app/middlewares/Request");
-const fileUpload = require("express-fileupload");
-const { submitQuest } = require("../app/controllers/Submition");
 
 route.use("/", authToken);
 route.get("/profile/:slug", ProfilePage);
@@ -37,123 +40,28 @@ route.get("/profile/:slug", ProfilePage);
 route.get("/login", [notAuth], LoginPage);
 route.get("/register", [notAuth], RegisterPage);
 route.get("/logout", [isAuth], Logout);
-route.post(
-  "/login",
-  [
-    notAuth,
-    body("username").custom(usernameGet),
-    body("password").custom(passwordVal),
-  ],
-  Login
-);
-route.post(
-  "/register",
-  [
-    notAuth,
-    body("username")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("You need username")
-      .custom(usernameUnique),
-    body("email")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("You need email")
-      .isEmail()
-      .withMessage("It is not an email")
-      .custom(emailUnique),
-    body("password")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("You need password")
-      .isLength({ min: 8, max: 12 })
-      .withMessage("8 - 12 characters please"),
-  ],
-  Register
-);
+route.post("/login", [notAuth, postLogin], Login);
+route.post("/register", [notAuth, postRegister], Register);
 
 route.get("/quest", QuestsPage);
 
 route.get("/quest/create", [isAuth], CreateQuestPage);
-route.post(
-  "/quest/create",
-  [
-    isAuth,
-    body("name")
-      .not()
-      .isEmpty()
-      .withMessage("Set the name please")
-      .custom(questNameCreate),
-    body("point").not().isEmpty().withMessage("You need a point for quest"),
-  ],
-  QuestCreate
-);
+route.post("/quest/create", [isAuth, postQuestCreate], QuestCreate);
 
-route.get("/quest/submit/:slug", [isAuth], (req, res) => {
-  return res.render("pages/createSubmition", {
-    slug: req.params.slug,
-  });
-});
-
-route.post(
-  "/quest/submit/:slug",
-  [isAuth],
-  fileUpload({
-    createParentPath: true,
-  }),
-  submitQuest
-);
+route.get("/quest/submit/:slug", [isAuth], submitionPage);
+route.post("/quest/submit/:slug", [isAuth, postSubmit], submitQuest);
 
 route.get("/quest/update/:slug", [isAuth], UpdateQuestPage);
-route.post(
-  "/quest/update/:slug",
-  [
-    isAuth,
-    body("name")
-      .not()
-      .isEmpty()
-      .withMessage("Set the name please")
-      .custom(questNameUpdate),
-    body("point").not().isEmpty().withMessage("You need a point for quest"),
-  ],
-  QuestUpdate
-);
+route.post("/quest/update/:slug", [isAuth, postQuestUpdate], QuestUpdate);
+
 route.get("/quest/delete/:slug", [isAuth], QuestDelete);
-route.get("/quest/:slug/:author", (req, res) => {
-  const dummy = {
-    theQuest: {
-      name: "dummy Quest",
-      point: 1000,
-      createdBy: {
-        username: "testUse"
-      }
-    },
-    comment: "# This is comment",
-    theFile: {
-      fileName: "TestFile.pdf",
-    },
-  };
-  const judge = {
-    point: 100,
-    comment: "# this is comment from quest author",
-    createdAt: "10 January 2023",
-  };
-  // const judge = null;
-  res.render("pages/submition", {
-    slug: req.params.slug,
-    author: req.params.author,
-    data: dummy,
-    judge,
-    isAuth: { user: "testUser" },
-  });
-});
+
+route.get("/quest/:slug/:author", [isAuth], judgePage); // TODO judgePage on Controller
+route.post("/quest/:slug/:author/point", [isAuth], judgeSubmition);
+
 route.get("/quest/:slug", QuestPage);
-route.get("/leaderboard", (_, res) => {
-  return res.render("pages/leaderboard");
-});
+
+route.get("/leaderboard", leaderBoardPage); // TODO leaderBoardPage on Controller
 route.get("/", HomePage);
 
 route.use("/", [authToken], NotfoundPage);

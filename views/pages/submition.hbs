@@ -5,7 +5,7 @@
       {{/with}}
       {{!-- if you quest author --}}
       {{#ifEq this isAuth.user data.theQuest.createdBy.username}}
-      <form action="/quest/:slug/:author/point" class="w-1/2 gap-y-2 mt-2 flex flex-col" method="post">
+      <form action="/quest/{{data.theQuest.slug}}/{{data.createdBy.username}}/point" class="w-1/2 gap-y-2 mt-2 flex flex-col" method="post">
             <input type="number" class="text-center border p-2 rounded-md" name="point" id="point"
                   placeholder="point here ..." {{#if judge}} value="{{judge.point}}" {{/if}} min="0" max="100">
             {{!-- max --}}

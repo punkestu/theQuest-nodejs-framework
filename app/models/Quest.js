@@ -15,6 +15,12 @@ const model = {
       where: { slug },
       include: {
         createdBy: true,
+        Submition: {
+          include: {
+            createdBy: true,
+            Judge: true,
+          },
+        },
       },
     });
   },
@@ -34,7 +40,7 @@ const model = {
         where: {
           slug,
         },
-        data
+        data,
       });
     },
   },

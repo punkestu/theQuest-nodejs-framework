@@ -9,8 +9,8 @@ async function generateAccessToken(ID) {
   return token;
 }
 
-class Auth {
-  static async Login(req, res) {
+const Controller = {
+  Login: async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render("pages/login", {
@@ -23,8 +23,8 @@ class Auth {
     const token = await generateAccessToken(req.body.username);
     res.cookie("jwt", token);
     return res.redirect("/");
-  }
-  static async Register(req, res) {
+  },
+  Register: async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render("pages/register", {
@@ -45,8 +45,8 @@ class Auth {
     const token = await generateAccessToken(req.body.username);
     res.cookie("jwt", token);
     return res.redirect("/");
-  }
-  static async Logout(req, res) {
+  },
+  Logout: async (req, res) => {
     const tokenExists = await TokenModel.exists(req.cookies["jwt"]);
     if (tokenExists) {
       TokenModel.logout(req.cookies["jwt"])
@@ -57,7 +57,7 @@ class Auth {
     } else {
       return res.redirect("/login");
     }
-  }
-}
+  },
+};
 
-module.exports = Auth;
+module.exports = Controller;
