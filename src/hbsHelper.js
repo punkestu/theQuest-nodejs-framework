@@ -20,6 +20,14 @@ module.exports = {
       return accumulator + object.theQuest.point;
     }, 0);
   },
+  forEach: (context, data, block) => {
+    var accum = "";
+    data.forEach((d) => {
+      accum += block.fn({ c: context, d });
+    });
+
+    return accum;
+  },
   forn: (n, block) => {
     var accum = "";
     for (let i = 0; i < n; i++) {

@@ -1,5 +1,6 @@
 const QuestModel = require("../models/Quest");
 const UserModel = require("../models/User");
+const { submition } = require("../../prisma/db");
 
 const Controller = {
   HomePage: (req, res) => {
@@ -70,32 +71,33 @@ const Controller = {
       command: "update/" + req.params.slug,
     });
   },
-  judgePage: (req, res) => {
-    const dummy = {
-      theQuest: {
-        name: "dummy Quest",
-        point: 1000,
+  judgePage: async (req, res) => {
+    const data = await submition.findFirst({
+      where: {
+        theQuest: {
+          slug: req.params.slug,
+        },
         createdBy: {
-          username: "testUse",
+          username: req.params.author,
         },
       },
-      comment: "# This is comment",
-      theFile: {
-        fileName: "TestFile.pdf",
+      include: {
+        theQuest: {
+          include: {
+            createdBy: true,
+          },
+        },
+        createdBy: true,
+        theFile: true,
+        Judge: true,
       },
-    };
-    const judge = {
-      point: 100,
-      comment: "# this is comment from quest author",
-      createdAt: "10 January 2023",
-    };
-    // const judge = null;
+    });
     res.render("pages/submition", {
       slug: req.params.slug,
       author: req.params.author,
-      data: dummy,
-      judge,
-      isAuth: { user: "testUser" },
+      data,
+      judge: data.Judge[0],
+      isAuth: req.user,
     });
   },
   submitionPage: (req, res) => {
