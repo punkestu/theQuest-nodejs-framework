@@ -20,7 +20,7 @@ const Controller = {
         data: {
           submitionId: _submition.id,
           comment: req.body.comment,
-          point: req.body.point,
+          point: parseInt(req.body.point),
         },
       });
       return res.redirect("/");
